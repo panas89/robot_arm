@@ -24,19 +24,26 @@ class BitPattern(object):
         return BitPattern(self.arm | other.arm,
                           self.base | other.base,
                           self.led | other.led)
+    
+    def __eq__(self, other):
+        return self.arm == other.arm and self.base == other.base and self.led == other.led
 
-CloseGrips =    BitPattern(1, 0, 0)
-OpenGrips =     BitPattern(2, 0, 0)
-Stop =          BitPattern(0, 0, 0)
-WristUp =       BitPattern(0x4, 0, 0)
-WristDown =     BitPattern(0x8, 0, 0)
-ElbowUp =       BitPattern(0x10, 0, 0)
-ElbowDown =     BitPattern(0x20, 0, 0)
-ShoulderUp =    BitPattern(0x40, 0, 0)
-ShoulderDown =  BitPattern(0x80, 0, 0)
-BaseClockWise = BitPattern(0, 1, 0)
+    def __str__(self):
+        return "<BitPattern arm:%s base:%s led:%s>" % (self.arm, self.base, self.led)
+    
+
+CloseGrips =       BitPattern(1, 0, 0)
+OpenGrips =        BitPattern(2, 0, 0)
+Stop =             BitPattern(0, 0, 0)
+WristUp =          BitPattern(0x4, 0, 0)
+WristDown =        BitPattern(0x8, 0, 0)
+ElbowUp =          BitPattern(0x10, 0, 0)
+ElbowDown =        BitPattern(0x20, 0, 0)
+ShoulderUp =       BitPattern(0x40, 0, 0)
+ShoulderDown =     BitPattern(0x80, 0, 0)
+BaseClockWise =    BitPattern(0, 1, 0)
 BaseCtrClockWise = BitPattern(0, 2, 0)
-LedOn =         BitPattern(0, 0, 1)
+LedOn =            BitPattern(0, 0, 1)
 
 
 class Arm(object):
@@ -60,6 +67,9 @@ class Arm(object):
         except:
             self.tell(Stop)
             raise
+
+    def light_on(self):
+        self.light_state = LedOn
 
     def move(self, pattern, time=1):
         """Perform a pattern move with timing and stop"""
