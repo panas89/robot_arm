@@ -32,8 +32,8 @@ class BitPattern(object):
         return "<BitPattern arm:%s base:%s led:%s>" % (self.arm, self.base, self.led)
     
 
-CloseGrips =       BitPattern(1, 0, 0)
-OpenGrips =        BitPattern(2, 0, 0)
+GripsClose =       BitPattern(1, 0, 0)
+GripsOpen =        BitPattern(2, 0, 0)
 Stop =             BitPattern(0, 0, 0)
 WristUp =          BitPattern(0x4, 0, 0)
 WristDown =        BitPattern(0x8, 0, 0)
@@ -100,11 +100,11 @@ class Arm(object):
             raise
 
 
-block_left = [[ShoulderDown], [CloseGrips, 0.4], [ShoulderUp],
+block_left = [[ShoulderDown], [GripsClose, 0.4], [ShoulderUp],
               [BaseClockWise, 10.2], [ShoulderDown],
-              [OpenGrips, 0.4], [ShoulderUp, 1.2]]
-block_right = [[ShoulderDown], [CloseGrips, 0.4], [ShoulderUp],
+              [GripsOpen, 0.4], [ShoulderUp, 1.2]]
+block_right = [[ShoulderDown], [GripsClose, 0.4], [ShoulderUp],
                [BaseCtrClockWise, 10.2], [ShoulderDown],
-               [OpenGrips, 0.4], [ShoulderUp, 1.2]]
+               [GripsOpen, 0.4], [ShoulderUp, 1.2]]
 left_and_blink = list(block_left)
 left_and_blink.extend([[LedOn, 0.5], [Stop, 0.5]] * 3)
