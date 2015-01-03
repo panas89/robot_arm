@@ -2,6 +2,7 @@ import usb_arm
 import unittest
 import time
 import functools
+import logging
 
 def time_msec():
     return round(time.time() * 1000.0)
@@ -11,6 +12,10 @@ class StubUsb:
         self.ctrl_commands=[]
     
     def ctrl_transfer(self, reqType, req, value, idx, data=None, length=None):
+        # print("ctl_transfer(%s, %s, %s, %s, %s, %s)" % (reqType, req, value, idx, data, length))
+        assert reqType == 0x40
+        assert req == 6
+        assert value == 0x100
         self.ctrl_commands.append((data, time_msec()))
 
     def get_last_ctrl_command(self):
