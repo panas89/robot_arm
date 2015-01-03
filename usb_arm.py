@@ -35,7 +35,9 @@ class BitPattern(object):
         return self.__repr__()    
 
 GripsClose =       BitPattern(1, 0, 0)
+CloseGrips =       GripsClose
 GripsOpen =        BitPattern(2, 0, 0)
+OpenGrips =        GripsOpen
 Stop =             BitPattern(0, 0, 0)
 WristUp =          BitPattern(0x4, 0, 0)
 WristDown =        BitPattern(0x8, 0, 0)
