@@ -90,6 +90,10 @@ class UsbArmTest(unittest.TestCase):
         self.assertIn(time2 - time1, range(0, 5))
         self.assertIn(time3 - time2, range(3090, 4010))
 
+    def test_both_grips_action_names_exist(self):
+        self.assertEqual(usb_arm.GripsOpen, usb_arm.OpenGrips)
+        self.assertEqual(usb_arm.GripsClose, usb_arm.CloseGrips)
+
 if __name__ == '__main__':
     unittest.main()
     
