@@ -28,9 +28,11 @@ class BitPattern(object):
     def __eq__(self, other):
         return self.arm == other.arm and self.base == other.base and self.led == other.led
 
-    def __str__(self):
+    def __repr__(self):
         return "<BitPattern arm:%s base:%s led:%s>" % (self.arm, self.base, self.led)
-    
+
+    def __str__(self):
+        return self.__repr__()    
 
 GripsClose =       BitPattern(1, 0, 0)
 GripsOpen =        BitPattern(2, 0, 0)
