@@ -72,9 +72,6 @@ class Arm(object):
             self.tell(Stop)
             raise
 
-    def light_on(self):
-        self.light_state = LedOn
-
     def move(self, pattern, time=1):
         """Perform a pattern move with timing and stop"""
         self.tell(pattern)
