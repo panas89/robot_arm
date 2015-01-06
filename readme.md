@@ -7,7 +7,7 @@ Python Code to drive the Maplin/OWI USB Robot arm
 
 Requirements
 ============
-* Python 2.7
+* Python 2.7 or 3.0
 * Libusb
 * pyusb
 
@@ -28,7 +28,7 @@ Now lets test it by turning on the LED
 
     >>> arm.move(usb_arm.LedOn)
 
-It will turn on for 1 second, and automatically turn off. The moveArm function automatically turns off after each
+It will turn on for 1 second, and automatically turn off. The move() function automatically turns off after each
 move. You can optionally specify another time, but since the Maplin arm doesn't have any sensors, beware that if
 it reaches limits before the time finishes, then it won't stop.
 
@@ -40,8 +40,8 @@ Actual movement
 The elbow will move up.
 The movements possible:
 
-OpenGrips
-CloseGrips
+GripsOpen
+GripsClose
 WristUp
 WristDown
 ElbowUp
@@ -87,7 +87,7 @@ know the position of the arm, and wont move it past its limits - which could cau
 Sequences are created as arrays of commands. Each command is an array of the bitpattern, followed by the
 optional time (defaulting to 1 second):
 
-    >>> actions = [[usb_arm.ElbowDown, 0.5], [usb_arm.CloseGrips, 0.5], [usb_arm.ElbowUp]]
+    >>> actions = [[usb_arm.ElbowDown, 0.5], [usb_arm.GripsClose, 0.5], [usb_arm.ElbowUp]]
 
 To issue the action list:
 
