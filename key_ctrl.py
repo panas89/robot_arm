@@ -9,7 +9,7 @@ import sys
 def handle_key(arm, delay, key_map, key):
     def do_it():
         if key in key_map:
-            print "Doing key ", key
+            print("Doing key ", key)
             arm.move(key_map[key], delay)
     arm.safe_tell(do_it)
   
@@ -35,7 +35,7 @@ def key_loop():
     try:
         arm = usb_arm.Arm()
     except AttributeError:
-        print "Please make sure the arm is connected and turned on"
+        print("Please make sure the arm is connected and turned on")
         sys.exit(1)
     handle = partial(handle_key, arm, 0.5, km)
     exit_key = K_ESCAPE
