@@ -116,4 +116,9 @@ and add:
 
 Plug in the device and you should be able to access it. Tested on Ubuntu and Mint Linux versions.
 
+License
+=======
+CC BY SA 3.0 - http://creativecommons.org/licenses/by-sa/3.0/
+Creative Commons By Attribution Share-Alike v3.0
+
 
