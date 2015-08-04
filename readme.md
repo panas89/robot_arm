@@ -8,7 +8,7 @@ Python Code to drive the Maplin/OWI USB Robot arm
 Requirements
 ============
 * Python 2.7
-* Libusb
+* Libusb (on linux, mac or windows - http://sourceforge.net/projects/libusb-win32/files/latest/download)
 * pyusb (https://github.com/walac/pyusb) not the d2xx library of the same name.
 
 Usage
