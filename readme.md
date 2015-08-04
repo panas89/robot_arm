@@ -9,7 +9,7 @@ Requirements
 ============
 * Python 2.7
 * Libusb
-* pyusb
+* pyusb (https://github.com/walac/pyusb) not the d2xx library of the same name.
 
 Usage
 =====
