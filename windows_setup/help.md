@@ -5,6 +5,8 @@ Tested with Python 2.7, Windows 8 64 bit.
 
 First ensure you have a version of python installed.
 
+[Windows Installation Video](https://www.youtube.com/watch?v=sNp8Z_MH7iQ)
+
 LibUSB - The Backend
 ====================
 To get libusb running, the backend, go to http://sourceforge.net/projects/libusb-win32/files/ and pick up the latest release.
