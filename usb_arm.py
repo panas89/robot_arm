@@ -1,6 +1,13 @@
-"""Maplin USB Robot arm control"""
-import os
-os.environ['DYLD_LIBRARY_PATH'] = '/opt/local/lib'
+"""Maplin USB Robot arm control.
+Usage - 
+>>> import usb_arm
+>>> arm = usb_arm.Arm()
+>>> arm.move(usb_arm.OpenGrips)
+>>> arm.doActions(block_left) # WARNING - ARM SHOULD BE ALL THE WAY RIGHT BEFORE TRYING THIS
+
+Trouble:
+"NO back end found" - you need to install a libusb driver on your system.
+"""
 import usb.core
 from time import sleep
 
