@@ -7,7 +7,7 @@ Python Code to drive the Maplin/OWI USB Robot arm
 
 Requirements
 ============
-* Python 2.7
+* Python 2.7 or 3.0
 * Libusb (on linux, mac or windows - http://sourceforge.net/projects/libusb-win32/files/latest/download)
 * pyusb (https://github.com/walac/pyusb) not the d2xx library of the same name.
 
@@ -28,7 +28,7 @@ Now lets test it by turning on the LED
 
     >>> arm.move(usb_arm.LedOn)
 
-It will turn on for 1 second, and automatically turn off. The moveArm function automatically turns off after each
+It will turn on for 1 second, and automatically turn off. The move() function automatically turns off after each
 move. You can optionally specify another time, but since the Maplin arm doesn't have any sensors, beware that if
 it reaches limits before the time finishes, then it won't stop.
 
@@ -40,8 +40,8 @@ Actual movement
 The elbow will move up.
 The movements possible:
 
-OpenGrips
-CloseGrips
+GripsOpen
+GripsClose
 WristUp
 WristDown
 ElbowUp
@@ -87,7 +87,7 @@ know the position of the arm, and wont move it past its limits - which could cau
 Sequences are created as arrays of commands. Each command is an array of the bitpattern, followed by the
 optional time (defaulting to 1 second):
 
-    >>> actions = [[usb_arm.ElbowDown, 0.5], [usb_arm.CloseGrips, 0.5], [usb_arm.ElbowUp]]
+    >>> actions = [[usb_arm.ElbowDown, 0.5], [usb_arm.GripsClose, 0.5], [usb_arm.ElbowUp]]
 
 To issue the action list:
 
@@ -121,4 +121,14 @@ License
 CC BY SA 3.0 - http://creativecommons.org/licenses/by-sa/3.0/
 Creative Commons By Attribution Share-Alike v3.0
 
+
+
+Related Work
+============
+
+* The original reverse engineering of the UBS protocol was done by 
+[Vadim Zaliva](http://www.crocodile.org/lord/) and published on [his blog] (http://notbrainsurgery.livejournal.com/38622.html)
+* An alternative Objective-C control program is [here](https://armctrl.codeplex.com)
+* Maplin's product information on their [web site](http://www.maplin.co.uk/robotic-arm-kit-with-usb-pc-interface-266257)
+* OWI (manufacturer) information [here](http://www.owirobots.com/cart/catalog/OWI-535USB-ROBOTIC-ARM-KIT-with-USB-PC-INTERFACE-Assembled-103.html)
 

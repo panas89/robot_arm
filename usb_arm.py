@@ -31,19 +31,30 @@ class BitPattern(object):
         return BitPattern(self.arm | other.arm,
                           self.base | other.base,
                           self.led | other.led)
+    
+    def __eq__(self, other):
+        return self.arm == other.arm and self.base == other.base and self.led == other.led
 
-CloseGrips =    BitPattern(1, 0, 0)
-OpenGrips =     BitPattern(2, 0, 0)
-Stop =          BitPattern(0, 0, 0)
-WristUp =       BitPattern(0x4, 0, 0)
-WristDown =     BitPattern(0x8, 0, 0)
-ElbowUp =       BitPattern(0x10, 0, 0)
-ElbowDown =     BitPattern(0x20, 0, 0)
-ShoulderUp =    BitPattern(0x40, 0, 0)
-ShoulderDown =  BitPattern(0x80, 0, 0)
-BaseClockWise = BitPattern(0, 1, 0)
+    def __repr__(self):
+        return "<BitPattern arm:%s base:%s led:%s>" % (self.arm, self.base, self.led)
+
+    def __str__(self):
+        return self.__repr__()    
+
+GripsClose =       BitPattern(1, 0, 0)
+CloseGrips =       GripsClose
+GripsOpen =        BitPattern(2, 0, 0)
+OpenGrips =        GripsOpen
+Stop =             BitPattern(0, 0, 0)
+WristUp =          BitPattern(0x4, 0, 0)
+WristDown =        BitPattern(0x8, 0, 0)
+ElbowUp =          BitPattern(0x10, 0, 0)
+ElbowDown =        BitPattern(0x20, 0, 0)
+ShoulderUp =       BitPattern(0x40, 0, 0)
+ShoulderDown =     BitPattern(0x80, 0, 0)
+BaseClockWise =    BitPattern(0, 1, 0)
 BaseCtrClockWise = BitPattern(0, 2, 0)
-LedOn =         BitPattern(0, 0, 1)
+LedOn =            BitPattern(0, 0, 1)
 
 
 class Arm(object):
@@ -97,11 +108,11 @@ class Arm(object):
             raise
 
 
-block_left = [[ShoulderDown], [CloseGrips, 0.4], [ShoulderUp],
+block_left = [[ShoulderDown], [GripsClose, 0.4], [ShoulderUp],
               [BaseClockWise, 10.2], [ShoulderDown],
-              [OpenGrips, 0.4], [ShoulderUp, 1.2]]
-block_right = [[ShoulderDown], [CloseGrips, 0.4], [ShoulderUp],
+              [GripsOpen, 0.4], [ShoulderUp, 1.2]]
+block_right = [[ShoulderDown], [GripsClose, 0.4], [ShoulderUp],
                [BaseCtrClockWise, 10.2], [ShoulderDown],
-               [OpenGrips, 0.4], [ShoulderUp, 1.2]]
+               [GripsOpen, 0.4], [ShoulderUp, 1.2]]
 left_and_blink = list(block_left)
 left_and_blink.extend([[LedOn, 0.5], [Stop, 0.5]] * 3)
