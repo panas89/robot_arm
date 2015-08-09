@@ -81,9 +81,11 @@ class Arm(object):
 
     def move(self, pattern, time=1):
         """Perform a pattern move with timing and stop"""
-        self.tell(pattern)
-        sleep(time)
-        self.tell(Stop)
+        try:
+        	self.tell(pattern)
+        	sleep(time)
+        finally:
+        	self.tell(Stop)
 
     def doActions(self, actions):
         """Params: List of actions - each is a list/tuple of BitPattern and time
@@ -103,20 +105,8 @@ class Arm(object):
                 else:
                     time = 1
                 self.move(action[0], time)
-        except:
+        finally:
             self.move(Stop)
-            raise
-
-
-block_left = [[ShoulderDown], [GripsClose, 0.4], [ShoulderUp],
-              [BaseClockWise, 10.2], [ShoulderDown],
-              [GripsOpen, 0.4], [ShoulderUp, 1.2]]
-block_right = [[ShoulderDown], [GripsClose, 0.4], [ShoulderUp],
-               [BaseCtrClockWise, 10.2], [ShoulderDown],
-               [GripsOpen, 0.4], [ShoulderUp, 1.2]]
-left_and_blink = list(block_left)
-left_and_blink.extend([[LedOn, 0.5], [Stop, 0.5]] * 3)
-left_and_blink.extend([[LedOn, 0.5], [Stop, 0.5]] * 3)
 
 def makeGrabAndMove(baseDir):
 	return [[CloseGrips, 1.1],
@@ -124,3 +114,7 @@ def makeGrabAndMove(baseDir):
                 [baseDir, 8.5],
                 [ShoulderDown | ElbowDown | WristUp | baseDir],
                 [OpenGrips]]
+
+blink = [[LedOn, 0.5], [Stop, 0.5]] * 3
+block_left = makeGrabAndMove(BaseClockWise, 0.4) + blink
+block_right = makeGrabAndMove(BaseCtrClockWise, 0.4) + blink
