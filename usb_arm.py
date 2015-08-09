@@ -116,3 +116,11 @@ block_right = [[ShoulderDown], [GripsClose, 0.4], [ShoulderUp],
                [GripsOpen, 0.4], [ShoulderUp, 1.2]]
 left_and_blink = list(block_left)
 left_and_blink.extend([[LedOn, 0.5], [Stop, 0.5]] * 3)
+left_and_blink.extend([[LedOn, 0.5], [Stop, 0.5]] * 3)
+
+def makeGrabAndMove(baseDir):
+	return [[CloseGrips, 1.1],
+                [ShoulderUp | ElbowUp | WristDown | baseDir],
+                [baseDir, 8.5],
+                [ShoulderDown | ElbowDown | WristUp | baseDir],
+                [OpenGrips]]
