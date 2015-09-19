@@ -1,5 +1,7 @@
 Python Code to drive the Maplin/OWI USB Robot arm
 
+(Video Demo)[https://www.youtube.com/watch?v=dAvWBOTtGnU]
+
   Tested on:
   * Linux
   * OSX (Lion, Mountain Lion)
