@@ -17,7 +17,7 @@ Usage
 =====
 As a library:
 
-    >>> import arm
+    >>> import usb_arm
 
 To initialise libusb and the arm
 
