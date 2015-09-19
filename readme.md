@@ -55,6 +55,8 @@ BaseCtrClockWise
 
 Stop
 
+LedOn
+
 Combining Movements
 -------------------
 Movements are based upon the BitPattern class, and you can feed arbitrary bitpatterns to it, but all those the
