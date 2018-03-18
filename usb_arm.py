@@ -1,16 +1,20 @@
-"""Maplin USB Robot arm control.
-Usage - 
->>> import usb_arm
->>> arm = usb_arm.Arm()
->>> arm.move(usb_arm.OpenGrips)
->>> arm.doActions(block_left) # WARNING - ARM SHOULD BE ALL THE WAY RIGHT BEFORE TRYING THIS
-
-Trouble:
-"NO back end found" - you need to install a libusb driver on your system.
-"""
+"""Maplin USB Robot arm control"""
+import sys
+import os
+os.environ['DYLD_LIBRARY_PATH'] = '/opt/local/lib'
 import usb.core
 from time import sleep
 
+class usb_devices(object):
+    """class to identify connectd devices, turn on and off device to see vendor id"""
+
+    def getUsbDevices(self):
+        # find USB devices
+        dev = usb.core.find(find_all=True)
+        # loop through devices, printing vendor and product ids in decimal and hex
+        for cfg in dev:
+            sys.stdout.write('Decimal VendorID=' + str(cfg.idVendor) + ' & ProductID=' + str(cfg.idProduct) + '\n')
+            sys.stdout.write('Hexadecimal VendorID=' + hex(cfg.idVendor) + ' & ProductID=' + hex(cfg.idProduct) + '\n\n')
 
 class BitPattern(object):
     """A bit pattern to send to a robot arm"""
@@ -61,8 +65,8 @@ class Arm(object):
     """Arm interface"""
     __slots__ = ['dev']
 
-    def __init__(self):
-        self.dev = usb.core.find(idVendor=0x1267)
+    def __init__(self,idVendor,idProduct):
+        self.dev = usb.core.find(idVendor=idVendor, idProduct=idProduct)
         self.dev.set_configuration()
 
     def tell(self, msg):
@@ -81,11 +85,9 @@ class Arm(object):
 
     def move(self, pattern, time=1):
         """Perform a pattern move with timing and stop"""
-        try:
-        	self.tell(pattern)
-        	sleep(time)
-        finally:
-        	self.tell(Stop)
+        self.tell(pattern)
+        sleep(time)
+        self.tell(Stop)
 
     def doActions(self, actions):
         """Params: List of actions - each is a list/tuple of BitPattern and time
@@ -105,16 +107,16 @@ class Arm(object):
                 else:
                     time = 1
                 self.move(action[0], time)
-        finally:
+        except:
             self.move(Stop)
+            raise
 
-def makeGrabAndMove(baseDir):
-	return [[CloseGrips, 1.1],
-                [ShoulderUp | ElbowUp | WristDown | baseDir],
-                [baseDir, 8.5],
-                [ShoulderDown | ElbowDown | WristUp | baseDir],
-                [OpenGrips]]
 
-blink = [[LedOn, 0.5], [Stop, 0.5]] * 3
-block_left = makeGrabAndMove(BaseClockWise, 0.4) + blink
-block_right = makeGrabAndMove(BaseCtrClockWise, 0.4) + blink
+block_left = [[ShoulderDown], [GripsClose, 0.4], [ShoulderUp],
+              [BaseClockWise, 10.2], [ShoulderDown],
+              [GripsOpen, 0.4], [ShoulderUp, 1.2]]
+block_right = [[ShoulderDown], [GripsClose, 0.4], [ShoulderUp],
+               [BaseCtrClockWise, 10.2], [ShoulderDown],
+               [GripsOpen, 0.4], [ShoulderUp, 1.2]]
+left_and_blink = list(block_left)
+left_and_blink.extend([[LedOn, 0.5], [Stop, 0.5]] * 3)
